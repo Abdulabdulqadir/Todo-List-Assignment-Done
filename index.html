@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tdo List</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins";
+        box-sizing: border-box;
+    }
+    
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    header {
+        width: 530px;
+        background-color:  rgb(24, 161, 189);
+        padding: 10px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 30px;
+    }
+    
+    header input {
+        border: none;
+        background: none;
+        color:  #ffffff;
+        padding: 10px 30px;
+        width: 350px;
+        outline: none;
+    }
+    
+    header input::placeholder {
+        color:  #ffffff;
+    }
+    
+    header button {
+        padding: 10px 30px;
+        background-color:  #ffffff;
+        border-radius: 20px;
+        color:   rgb(24, 161, 189);
+        outline: none;
+        border: none;
+        cursor: pointer;
+    }
+    
+    main {
+        width: 530px;
+        background-color:   rgb(24, 161, 189);
+        border: 1px solid  #ffffff;
+        height: 210px;
+        overflow-y: auto;
+        padding: 10px 30px;
+        border-radius: 30px;
+        margin-top: 1.54rem;
+        display: flex;
+        align-items: center;    
+        justify-content: center;
+    }
+    
+    main ul {
+        list-style: none;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    h1{
+        font-size: 70px;
+        color:  #ffffff;
+        font-weight: 600
+    }
+    
+    main li {
+        background-color:  #ffffff;
+        width: 100%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        padding: 10px 30px;
+        border-radius: 30px;
+    }
+    
+    
+    main li input{
+        border: none;
+        outline: none;
+        font-size: 15px;
+    }
+    
+    main li button{
+         padding: 10px 30px;
+         background-color:   rgb(24, 161, 189);
+         border-radius: 20px;
+         color: #ffffff;
+         outline: none;
+         border: none;
+         cursor: pointer;
+         margin-right: 10px;
+    }
+    
+    
+    main li input:focus{
+        color:  rgb(24, 161, 189);
+    }
+    
+    .hidden{
+        display: none;
+    }
+    </style>
+</head>
+
+<body>
+
+    <header>
+            <input type="text" name="new-task-input" id="new-task-input" placeholder="Add New Task" />
+            <button type="submit" id="new-task-submit" onclick="AddTodo()" value="">Add task</button>
+
+    </header>
+    <main>
+        <section class="task-list"
+
+            <ul id="tasks">
+                <h1 id="tas">Tasks</h1>
+            </ul>
+        </section>
+    </main>
+
+    
+    <script>
+        function AddTodo() {
+  // Taking Elements From Input
+  const input = document.querySelector("#new-task-input");
+  const listCont = document.querySelector("#tasks");
+  const task = input.value;
+  document.getElementById("tas").classList.add("hidden");
+  if (input.value === "") {
+    alert("please Enter a Todo")
+    return;
+  }
+
+  //Creating Element o Append in HTML
+  const li = document.createElement("li");
+  const taskInput = document.createElement("input");
+  const editButton = document.createElement("button");
+  const deleteButton = document.createElement("button");
+  const actionsDiv = document.createElement("div");
+  taskInput.value = task;
+
+  //Adding Classlist to Created Elements
+  li.classList.add("content");
+  taskInput.classList.add("text");
+  editButton.classList.add("edit");
+  deleteButton.classList.add("delete");
+  actionsDiv.classList.add("action");
+
+  // Setting Attribute
+  taskInput.setAttribute("readonly", "readonly");
+
+  // Appending Childs
+  listCont.appendChild(li);
+  li.appendChild(taskInput);
+  actionsDiv.appendChild(editButton);
+  actionsDiv.appendChild(deleteButton);
+  li.appendChild(actionsDiv);
+
+  //Assigning Value
+  editButton.innerText = "Edit";
+  deleteButton.innerText = "Delete";
+  taskInput.type = "text";
+
+  //Clearing the Input value
+  input.value = "";
+
+  //Adding Event Listners
+  editButton.addEventListener("click", (e) => {
+    if (editButton.innerText.toLowerCase() == "edit") {
+      editButton.innerText = "Save";
+      taskInput.removeAttribute("readonly");
+      taskInput.focus();
+    } else {
+      editButton.innerText = "Edit";
+      taskInput.setAttribute("readonly", "readonly");
+    }
+  });
+  deleteButton.addEventListener("click", (e) => {
+    listCont.removeChild(li);
+  });
+}
+    </script>
+</body>
+
+</html>
